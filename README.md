@@ -163,7 +163,7 @@ PCCA/
 
 ### Backend
 
-[Ver PDF](PCCA Plataforma Oficial - Desenvolvimento do Backend.pdf)
+[Ver PDF](./pcca-backend.pdf)
 
 ## 🔒 Política de Privacidade
 
