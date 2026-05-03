@@ -163,25 +163,7 @@ PCCA/
 
 ### Backend
 
-Em desenvolvimento.
-
-### Banco de Dados
-
-Em desenvolvimento.
-
-### APIs / Integrações
-
-Em desenvolvimento.
-
-### Fluxo do Sistema
-
-Em desenvolvimento.
-
-### Arquitetura
-
-Em desenvolvimento.
-
----
+[Ver PDF](/docs/PCCAPlataformaOficial.pdf)
 
 ## 🔒 Política de Privacidade
 
