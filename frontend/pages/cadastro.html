@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro - PCCA IFPE</title>
+<link rel="icon" type="image/png" href="../../assets/images/logo.png">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body>
+
+<header class="top-bar">
+    <div class="top-container">
+        <div class="brand">
+            <img src="../../assets/images/logo.png" alt="Instituto Federal Pernambuco">
+            <div class="brand-text">
+                <h1>Plataforma de Compartilhamento de Conhecimento</h1>
+                <span>Instituto Federal de Pernambuco</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">☰ Menu</button>
+
+        <nav class="menu" id="menu">
+            <a href="index.html">Início</a>
+            <a href="disciplinas.html">Disciplinas</a>
+            <a href="perguntas.html">Perguntas</a>
+            <a href="painel.html">Painel do Aluno</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Cadastro do Aluno</h2>
+        <p>Crie sua conta para acessar a plataforma</p>
+    </div>
+</section>
+
+<main class="layout">
+<section class="content">
+
+<div class="post-card">
+<h3>Cadastrar</h3>
+
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="senha" placeholder="Senha">
+
+<button class="btn-primary"
+    onclick="cadastrar(
+    document.getElementById('email').value,
+    document.getElementById('senha').value
+    )">
+    Cadastrar
+</button>
+
+<div class="login-actions">
+<button class="btn-secondary" onclick="window.location.href='login.html'">
+Já tenho conta
+</button>
+</div>
+
+</div>
+
+</section>
+</main>
+
+<footer class="footer">
+Instituto Federal de Pernambuco - Curso Técnico em Desenvolvimento de Sistemas
+</footer>
+
+<script src="../../assets/js/script.js"></script>
+<script type="module" src="../../assets/js/auth.js"></script>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById("menu");
+        menu.classList.toggle("active");
+    }
+</script>
+
+</body>
+</html>

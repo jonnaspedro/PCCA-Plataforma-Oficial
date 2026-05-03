@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCCA - Perguntas</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<style>
+.menu-toggle{
+    display:none;
+    background:transparent;
+    border:none;
+    color:inherit;
+    font-size:1rem;
+    cursor:pointer;
+    padding:.75rem 1rem;
+}
+
+@media (max-width:768px){
+
+.top-container{
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.menu-toggle{
+    display:block;
+}
+
+nav.menu{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    margin-top:.75rem;
+}
+
+nav.menu.active{
+    display:flex;
+}
+
+nav.menu a{
+    width:100%;
+    text-align:left;
+    padding:.75rem 0;
+}
+
+}
+
+.cardPergunta{
+    background:#ffffff;
+    border:1px solid #e8e8e8;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+    transition:.2s;
+}
+
+.cardPergunta:hover{
+    transform:translateY(-2px);
+}
+
+.cardPergunta h4{
+    margin:0 0 8px;
+    color:#1f2937;
+    font-size:1.1rem;
+}
+
+.cardPergunta small{
+    color:#6b7280;
+    display:block;
+    margin-bottom:10px;
+}
+
+.cardPergunta p{
+    color:#374151;
+    line-height:1.5;
+    margin-bottom:14px;
+}
+
+.acoesPergunta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+}
+
+.acoesPergunta button{
+    border:none;
+    background:#f3f4f6;
+    color:#111827;
+    padding:7px 12px;
+    border-radius:9px;
+    font-size:.85rem;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.acoesPergunta button:hover{
+    background:#e5e7eb;
+    transform:scale(1.03);
+}
+
+.comentariosBox{
+    margin-top:14px;
+}
+
+.comentariosPainel{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.comentariosHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+    font-weight:700;
+    color:#111827;
+}
+
+.btnFecharComentarios{
+    border:none;
+    background:#ef4444;
+    color:#fff;
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.comentarioTopo{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.campoComentario{
+    width:100%;
+    resize:none;
+    min-height:95px;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    outline:none;
+    font-size:.95rem;
+    background:#f9fafb;
+}
+
+.btnEnviarComentario{
+    align-self:flex-end;
+    border:none;
+    background:#198754;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.listaComentarios{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.itemComentario{
+    background:#f9fafb;
+    border:1px solid #eef0f2;
+    border-radius:12px;
+    padding:12px;
+}
+
+@media(max-width:768px){
+
+.acoesPergunta{
+    flex-direction:column;
+    align-items:stretch;
+}
+
+.acoesPergunta button{
+    width:100%;
+}
+
+.btnEnviarComentario{
+    width:100%;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-bar">
+    
+    <div class="top-container">
+        <div class="brand">
+            <img src="../../assets/images/logo.png" alt="Instituto Federal Pernambuco">
+
+            <div class="brand-text">
+                <h1>Plataforma de Compartilhamento de Conhecimento</h1>
+                <span>Instituto Federal de Pernambuco</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+        ☰ Menu
+        </button>
+
+        <nav class="menu" id="menu">
+            <a href="index.html" class="active">Início</a>
+            <a href="disciplinas.html">Disciplinas</a>
+            <a href="perguntas.html">Perguntas</a>
+            <a href="painel.html">Painel do Aluno</a>
+        </nav>
+
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <br>
+        <h2>Área de Perguntas</h2>
+        <p>Tire dúvidas e ajude seus colegas</p>
+        <br>
+    </div>
+</section>
+
+<main class="layout">
+    <section class="content">
+
+    <article class="post-area">
+    <h3>Nova Pergunta</h3>
+
+    <form id="formPergunta" onsubmit="event.preventDefault(); publicarPergunta();">
+
+    <div class="form-group">
+    <label for="nome">Seu nome</label>
+    <input type="text" id="nome" readonly>
+    </div>
+
+    <div class="form-group">
+    <label for="titulo">Título da pergunta</label>
+    <input type="text" id="titulo" required>
+    </div>
+
+    <div class="form-group">
+        <label for="disciplina">Disciplina</label>
+        
+        <select id="disciplina" required>
+            <option value="">Selecione uma disciplina</option>
+
+            <optgroup label="1º Ano">
+                <option value="Artes 1">Artes 1</option>
+                <option value="Biologia 1">Biologia 1</option>
+                <option value="Ciência, Tecnologia e Sociedade">Ciência, Tecnologia e Sociedade</option>
+                <option value="Cidadania e Ética 1">Cidadania e Ética 1</option>
+                <option value="Filosofia 1">Filosofia 1</option>
+                <option value="Física 1">Física 1</option>
+                <option value="Geografia 1">Geografia 1</option>
+                <option value="História 1">História 1</option>
+                <option value="Informática e Redes">Informática e Redes</option>
+                <option value="Língua Inglesa 1">Língua Inglesa 1</option>
+                <option value="Língua Portuguesa 1">Língua Portuguesa 1</option>
+                <option value="Matemática 1">Matemática 1</option>
+                <option value="Programação 1">Programação 1</option>
+                <option value="Projeto e Prática 1">Projeto e Prática 1</option>
+                <option value="Química 1">Química 1</option>
+            </optgroup>
+
+            <optgroup label="2º Ano">
+                <option value="Banco de Dados">Banco de Dados</option>
+                <option value="Desenvolvimento Web">Desenvolvimento Web</option>
+                <option value="Programação 2">Programação 2</option>
+                <option value="Matemática 2">Matemática 2</option>
+                <option value="Física 2">Física 2</option>
+                <option value="Química 2">Química 2</option>
+            </optgroup>
+
+            <optgroup label="3º Ano">
+                <option value="Programação 3">Programação 3</option>
+                <option value="Matemática 3">Matemática 3</option>
+                <option value="Física 3">Física 3</option>
+                <option value="Química 3">Química 3</option>
+                <option value="Testes e Software">Testes e Software</option>
+                <option value="Empreendedorismo">Empreendedorismo</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="form-group">
+    <label for="texto">Digite sua dúvida</label>
+    <textarea id="texto" rows="5" required></textarea>
+    </div>
+
+    <small style="color:#b00020;display:block;margin-bottom:10px;">
+    ⚠️ Ao publicar conteúdo nesta plataforma, você declara estar 
+    ciente e concorda integralmente com as normas de uso, sendo 
+    responsável por qualquer informação inserida. Conteúdos inadequados, 
+    ofensivos ou que violem as diretrizes poderão ser removidos, podendo 
+    resultar em suspensão ou bloqueio da conta.
+    </small>
+
+    <div class="form-group">
+    <button type="submit">Publicar Pergunta</button>
+    </div>
+
+    </form>
+    </article>
+
+    <section class="user-settings">
+    <h3>Minhas Perguntas</h3>
+
+    <div class="filter-questions">
+    <label for="filtroDisciplina">Filtrar por disciplina:</label>
+    <select id="filtroDisciplina">
+    <option value="">Todas</option>
+    </select>
+    </div>
+
+    <div class="minhas-perguntas" id="minhasPerguntas"></div>
+
+    </section>
+
+    </section>
+</main>
+
+<footer class="footer">
+    Instituto Federal de Pernambuco - Curso Técnico em Desenvolvimento de Sistemas
+</footer>
+
+<script type="module" src="../../assets/js/script.js"></script>
+<script>
+function toggleMobileMenu(){
+    const menu = document.getElementById("menu");
+    const btn  = document.getElementById("menuToggle");
+
+    menu.classList.toggle("active");
+
+    const aberto = menu.classList.contains("active");
+    btn.setAttribute("aria-expanded", aberto);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const btn = document.getElementById("menuToggle");
+    const menu = document.getElementById("menu");
+
+    if(btn){
+        btn.addEventListener("click",function(e){
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+    }
+
+    document.addEventListener("click",function(e){
+
+        if(
+            menu.classList.contains("active") &&
+            !menu.contains(e.target) &&
+            !btn.contains(e.target)
+        ){
+            menu.classList.remove("active");
+            btn.setAttribute("aria-expanded","false");
+        }
+
+    });
+
+    menu.querySelectorAll("a").forEach(link=>{
+        link.addEventListener("click",()=>{
+            menu.classList.remove("active");
+            btn.setAttribute("aria-expanded","false");
+        });
+    });
+
+});
+</script>
+
+<script type="module">
+    import { auth } from "../../assets/js/firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    document.addEventListener("DOMContentLoaded",()=>{
+
+    const areaPergunta = document.getElementById("formPergunta");
+    const nomeInput = document.getElementById("nome");
+
+    onAuthStateChanged(auth,(user)=>{
+
+    if(!user){
+
+    areaPergunta.innerHTML = `
+    <p style="color:red;font-weight:bold;">
+    Você precisa estar logado para publicar perguntas.
+    <a href="login.html">Clique aqui para entrar</a>
+    </p>
+    `;
+
+    return;
+    }
+
+    if(nomeInput){
+    nomeInput.value = user.email;
+    }
+
+    });
+
+    });
+</script>
+</body>
+</html>

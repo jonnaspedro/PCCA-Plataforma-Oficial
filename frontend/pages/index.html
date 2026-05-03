@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCCA - Início</title>
+
+<link rel="icon" type="image/png" href="../../assets/images/logo.png">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<style>
+    .menu-toggle{
+        display:none;
+        background:transparent;
+        border:none;
+        color:inherit;
+        font-size:1rem;
+        cursor:pointer;
+        padding:.75rem 1rem;
+    }
+
+    .top-actions{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        justify-content:center;
+        margin-top:15px;
+    }
+
+    .top-actions a{
+        text-decoration:none;
+        padding:10px 16px;
+        border-radius:8px;
+        font-weight:bold;
+        transition:.2s;
+    }
+
+    .top-actions a:hover{
+        transform:translateY(-2px);
+    }
+
+    .btn-login{
+        background:#198754;
+        color:#fff;
+    }
+
+    .btn-painel{
+        background:#198754;
+        color:#fff;
+    }
+
+    .usuario-logado{
+        margin-top:10px;
+        font-weight:bold;
+    }
+
+    .layout-posts{
+        max-width:900px;
+        margin:auto;
+        padding:28px 18px;
+    }
+
+    .layout-posts h2{
+        text-align:left;
+        margin-bottom:22px;
+        font-size:1.8rem;
+        color:#111827;
+    }
+
+    .campo-busca{
+        margin-bottom:24px;
+    }
+
+    .campo-busca input{
+        width:100%;
+        padding:14px 16px;
+        border:1px solid #d1d5db;
+        border-radius:14px;
+        outline:none;
+        font-size:1rem;
+        transition:.2s;
+    }
+
+    .campo-busca input:focus{
+        border-color:#198754;
+        box-shadow:0 0 0 4px rgba(25,135,84,.10);
+    }
+
+    .cardPergunta{
+        background:#fff;
+        border:1px solid #ececec;
+        border-radius:18px;
+        padding:22px;
+        margin-bottom:22px;
+        box-shadow:0 10px 25px rgba(0,0,0,.05);
+        transition:.2s;
+    }
+
+    .cardPergunta:hover{
+        transform:translateY(-3px);
+    }
+
+    .cardPergunta h4{
+        margin:0 0 10px;
+        font-size:1.2rem;
+        color:#111827;
+    }
+
+    .cardPergunta small{
+        display:block;
+        color:#6b7280;
+        margin-bottom:12px;
+        font-size:.88rem;
+    }
+
+    .cardPergunta p{
+        color:#374151;
+        line-height:1.6;
+        margin-bottom:14px;
+    }
+
+    .comentariosIndexArea{
+        margin-top:16px;
+        padding-top:14px;
+        border-top:1px solid #f0f0f0;
+    }
+
+    .comentariosIndexArea h5{
+        margin:0 0 12px;
+        font-size:.98rem;
+        color:#111827;
+    }
+
+    .comentarioIndex{
+        background:#f9fafb;
+        border:1px solid #ececec;
+        border-radius:12px;
+        padding:12px;
+        margin-bottom:10px;
+    }
+
+    .comentarioIndex b{
+        color:#198754;
+        font-size:.82rem;
+        display:block;
+        margin-bottom:5px;
+    }
+
+    .comentarioIndex p{
+        margin:0;
+        font-size:.92rem;
+        color:#374151;
+    }
+
+    .semComentario{
+        display:block;
+        text-align:center;
+        padding:12px;
+        border:1px dashed #d1d5db;
+        border-radius:12px;
+        color:#6b7280;
+        font-size:.9rem;
+    }
+
+    @media (max-width:768px){
+
+    .top-container{
+        flex-wrap:wrap;
+        align-items:center;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    nav.menu{
+        display:none;
+        width:100%;
+        flex-direction:column;
+        margin-top:.75rem;
+    }
+
+    nav.menu.active{
+        display:flex;
+    }
+
+    nav.menu a{
+        width:100%;
+        text-align:left;
+        padding:.75rem 0;
+    }
+
+    .layout-posts{
+        padding:20px 12px;
+    }
+
+    .layout-posts h2{
+        text-align:left;
+        font-size:1.45rem;
+    }
+
+    .cardPergunta{
+        padding:18px;
+    }
+
+    .cardPergunta h4{
+        font-size:1.05rem;
+    }
+
+    }
+</style>
+</head>
+
+<body>
+
+<header class="top-bar">
+<div class="top-container">
+
+<div class="brand">
+    <img src="../../assets/images/logo.png" alt="Instituto Federal Pernambuco">
+
+    <div class="brand-text">
+        <h1>Plataforma de Compartilhamento de Conhecimento</h1>
+        <span>Instituto Federal de Pernambuco</span>
+    </div>
+</div>
+
+<button class="menu-toggle" id="menuToggle">☰ Menu</button>
+
+<nav class="menu" id="menu">
+    <a href="index.html" class="active">Início</a>
+    <a href="disciplinas.html">Disciplinas</a>
+    <a href="perguntas.html">Perguntas</a>
+    <a href="painel.html">Painel do Aluno</a>
+</nav>
+
+</div>
+</header>
+
+
+<section class="hero">
+<div class="hero-content">
+
+    <h2>Plataforma de Compartilhamento de Conhecimento</h2>
+
+    <p>Curso Técnico em Desenvolvimento de Sistemas</p>
+        <p>
+            <a href="https://qacademico.ifpe.edu.br/" target="_blank" class="link-qacademico">
+            Acesse o Q Acadêmico
+            </a>
+        </p>
+    <div id="areaUsuario"></div>
+
+</div>
+</section>
+
+
+<main class="layout-posts">
+
+    <h2>Perguntas Recentes</h2>
+
+    <div class="campo-busca">
+        <input
+        type="text"
+        id="buscaAssunto"
+        placeholder="Buscar por assunto..."
+        oninput="atualizarPostsIndex()"
+        >
+    </div>
+
+    <div id="Postagens"></div>
+
+</main>
+
+
+<footer class="footer">
+    Instituto Federal de Pernambuco - Curso Técnico em Desenvolvimento de Sistemas
+</footer>
+
+<script type="module">
+import { db, auth } from "../../assets/js/firebase-config.js";
+
+import {
+collection,
+getDocs,
+query,
+orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const areaUsuario = document.getElementById("areaUsuario");
+
+onAuthStateChanged(auth,(user)=>{
+
+    if(user){
+
+        areaUsuario.innerHTML = `
+            <div class="usuario-logado">
+                Logado como: ${user.email}
+            </div>
+
+            <div class="top-actions">
+                <a href="painel.html" class="btn-painel">
+                    Meu Painel
+                </a>
+
+                <a href="#" class="btn-login" id="btnSair">
+                    Sair
+                </a>
+            </div>
+        `;
+
+        document.getElementById("btnSair")
+        .addEventListener("click", async(e)=>{
+            e.preventDefault();
+            await signOut(auth);
+        });
+
+    }else{
+
+        areaUsuario.innerHTML = `
+            <div class="top-actions">
+                <a href="login.html" class="btn-login">
+                    Entrar
+                </a>
+
+                <a href="cadastro.html" class="btn-painel">
+                    Criar Conta
+                </a>
+            </div>
+        `;
+    }
+});
+
+window.atualizarPostsIndex = async function(){
+
+    const container = document.getElementById("Postagens");
+    container.innerHTML = "<p>Carregando...</p>";
+
+    const busca =
+    document.getElementById("buscaAssunto")
+    ?.value.toLowerCase() || "";
+
+    try{
+
+        const q = query(
+            collection(db,"perguntas"),
+            orderBy("data","desc")
+        );
+
+        const snapshot = await getDocs(q);
+
+        container.innerHTML = "";
+
+        if(snapshot.empty){
+            container.innerHTML =
+            "<p>Nenhuma pergunta encontrada.</p>";
+            return;
+        }
+
+        for (const docItem of snapshot.docs){
+
+            const p = docItem.data();
+            const perguntaId = docItem.id;
+
+            const titulo = (p.titulo || "").toLowerCase();
+            const texto  = (p.texto || "").toLowerCase();
+
+            if(
+                !titulo.includes(busca) &&
+                !texto.includes(busca)
+            ){
+                continue;
+            }
+
+            const comentariosSnap = await getDocs(
+                collection(db,"perguntas",perguntaId,"comentarios")
+            );
+
+            let comentariosHTML = "";
+
+            comentariosSnap.forEach((comentarioDoc)=>{
+
+                const c = comentarioDoc.data();
+
+                if(!c.nome || !c.texto || c.texto.trim() === "") return;
+
+                comentariosHTML += `
+                    <div class="comentarioIndex">
+                        <b>${c.nome}</b>
+                        <p>${c.texto}</p>
+                    </div>
+                `;
+            });
+
+            if(comentariosHTML === ""){
+                comentariosHTML =
+                `<small class="semComentario">
+                    Nenhum comentário.
+                </small>`;
+            }
+
+            const card = document.createElement("div");
+            card.className = "cardPergunta";
+
+            card.innerHTML = `
+                <h4>${p.titulo}</h4>
+
+                <small>
+                    Disciplina: ${p.disciplina}
+                    | Autor: ${p.nome}
+                </small>
+
+                <p>${p.texto}</p>
+
+                <small>
+                    👍 ${p.curtidas || 0}
+                </small>
+
+                <div class="comentariosIndexArea">
+                    <h5>💬 Comentários</h5>
+                    ${comentariosHTML}
+                </div>
+            `;
+
+            container.appendChild(card);
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML =
+        "<p>Erro ao carregar perguntas.</p>";
+    }
+}
+
+    function toggleMobileMenu(){
+
+        const menu = document.getElementById("menu");
+        menu.classList.toggle("active");
+    }
+
+    document.addEventListener("DOMContentLoaded",()=>{
+
+        atualizarPostsIndex();
+
+        document.getElementById("menuToggle")
+        .addEventListener("click",toggleMobileMenu);
+
+    });
+</script>
+</body>
+</html>

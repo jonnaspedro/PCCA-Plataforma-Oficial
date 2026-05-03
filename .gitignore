@@ -1,0 +1,25 @@
+# PCCA - .gitignore simples e realista
+
+# Firebase config privado
+assets/js/firebase-env.js
+
+# Variáveis locais
+.env
+
+# Logs
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+
+# Arquivos compactados locais
+*.zip
+*.rar
+
+# Build futura
+dist/
+build/

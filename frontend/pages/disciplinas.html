@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCCA - Disciplinas</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+    .menu-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        color: inherit;
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0.75rem 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .top-container {
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        nav.menu {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            margin-top: 0.75rem;
+        }
+
+        nav.menu.active {
+            display: flex;
+        }
+
+        nav.menu a {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 0;
+        }
+
+        .user-photo-header {
+            margin-top: 0.75rem;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+    <div class="top-container">
+        <div class="brand">
+            <img src="../../assets/images/logo.png" alt="Instituto Federal Pernambuco">
+            <div class="brand-text">
+                <h1>Plataforma de Compartilhamento de Conhecimento</h1>
+                <span>Instituto Federal de Pernambuco</span>
+            </div>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-controls="menu" aria-expanded="false" type="button">☰ Menu</button>
+        <nav class="menu" id="menu">
+            <a href="index.html" class="active">Início</a>
+            <a href="disciplinas.html">Disciplinas</a>
+            <a href="perguntas.html">Perguntas</a>
+            <a href="painel.html">Painel do Aluno</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Disciplinas do Curso</h2>
+        <p>Curso Técnico em Desenvolvimento de Sistemas</p>
+    </div>
+</section>
+
+<main class="disciplinas-container">
+
+    <section class="ano-section">
+        <h3>1º Ano</h3>
+        <div class="grid-disciplinas">
+            <a class="disciplina-card" >Artes 1</a>
+            <a class="disciplina-card" >Biologia 1</a>
+            <a class="disciplina-card" >Ciência, Tecnologia e Sociedade</a>
+            <a class="disciplina-card" >Cidadania e Ética 1</a>
+            <a class="disciplina-card" >Filosofia 1</a>
+            <a class="disciplina-card" >Física 1</a>
+            <a class="disciplina-card" >Geografia 1</a>
+            <a class="disciplina-card" >História 1</a>
+            <a class="disciplina-card" >Informática e Redes</a>
+            <a class="disciplina-card" >Língua Inglesa 1</a>
+            <a class="disciplina-card" >Língua Portuguesa 1</a>
+            <a class="disciplina-card" >Matemática 1</a>
+            <a class="disciplina-card" >Programação 1</a>
+            <a class="disciplina-card" >Projeto e Prática 1</a>
+            <a class="disciplina-card" >Química 1</a>
+        </div>
+    </section>
+
+    <section class="ano-section">
+        <h3>2º Ano</h3>
+        <div class="grid-disciplinas">
+            <a class="disciplina-card" >Banco de Dados</a>
+            <a class="disciplina-card" >Desenvolvimento Web</a>
+            <a class="disciplina-card" >Programação 2</a>
+            <a class="disciplina-card" >Matemática 2</a>
+            <a class="disciplina-card" >Física 2</a>
+            <a class="disciplina-card" >Química 2</a>
+        </div>
+    </section>
+
+    <section class="ano-section">
+        <h3>3º Ano</h3>
+        <div class="grid-disciplinas">
+            <a class="disciplina-card" >Programação 3</a>
+            <a class="disciplina-card" >Matemática 3</a>
+            <a class="disciplina-card" >Física 3</a>
+            <a class="disciplina-card" >Química 3</a>
+            <a class="disciplina-card" >Testes e Software</a>
+            <a class="disciplina-card" >Empreendedorismo</a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    Instituto Federal de Pernambuco - Curso Técnico em Desenvolvimento de Sistemas
+</footer>
+
+
+<script src="../../assets/js/script.js"></script>
+
+<script>
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById("menu");
+        const toggle = document.getElementById("menuToggle");
+        const isActive = menu.classList.toggle("active");
+        toggle.setAttribute("aria-expanded", isActive);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.getElementById("menuToggle");
+        menuToggle?.addEventListener("click", toggleMobileMenu);
+
+        document.querySelectorAll("#menu a").forEach(link => {
+            link.addEventListener("click", () => {
+                const menu = document.getElementById("menu");
+                const toggle = document.getElementById("menuToggle");
+                menu.classList.remove("active");
+                toggle?.setAttribute("aria-expanded", "false");
+            });
+        });
+    });
+
+</script>
+</body>
+</html>

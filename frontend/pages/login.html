@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - PCCA IFPE</title>
+<link rel="icon" type="image/png" href="../../assets/images/logo.png">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body>
+
+<header class="top-bar">
+    <div class="top-container">
+        <div class="brand">
+            <img src="../../assets/images/logo.png" alt="Instituto Federal Pernambuco">
+            <div class="brand-text">
+                <h1>Plataforma de Compartilhamento de Conhecimento</h1>
+                <span>Instituto Federal de Pernambuco</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" type="button" aria-controls="menu" aria-expanded="false">
+            ☰ Menu
+        </button>
+
+        <nav class="menu" id="menu">
+            <a href="index.html">Início</a>
+            <a href="disciplinas.html">Disciplinas</a>
+            <a href="perguntas.html">Perguntas</a>
+            <a href="painel.html">Painel do Aluno</a>
+        </nav>
+    </div>
+</header>
+
+<style>
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+}
+
+.recuperar-senha {
+    margin-top: 10px;
+    display: block;
+    font-size: 0.9rem;
+    color: #006b3f;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.recuperar-senha:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .top-container {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav.menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 0.75rem;
+    }
+
+    nav.menu.active {
+        display: flex;
+    }
+
+    nav.menu a {
+        width: 100%;
+        text-align: left;
+        padding: 0.75rem 0;
+    }
+}
+
+main.layout {
+    display: flex;
+    justify-content: center;
+}
+
+section.content {
+    width: 100%;
+    max-width: 420px;
+}
+
+.post-card {
+    margin: 0 auto;
+}
+</style>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Login do Aluno</h2>
+        <p>Acesse seu painel</p>
+    </div>
+</section>
+
+<main class="layout">
+    <section class="content">
+
+        <div class="post-card">
+            <h3>Entrar</h3>
+
+            <small>
+            Use seu e-mail institucional — ele será exibido como seu identificador ao publicar perguntas e conteúdos.
+            </small>
+
+            <input type="email" id="email" placeholder="exemplo@ifpe.edu.br" required>
+            <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+            <button class="btn-primary"
+                onclick="logar(
+                document.getElementById('email').value,
+                document.getElementById('senha').value
+                )">
+                Entrar
+            </button>
+
+            <div class="login-actions">
+                <button class="btn-secondary" onclick="window.location.href='cadastro.html'">
+                Criar Conta
+                </button>
+
+                <span class="recuperar-senha" style="display: block; text-align: center;"
+                    onclick="recuperarSenha(document.getElementById('email').value)">
+                    Esqueci minha senha
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+</main>
+
+<footer class="footer">
+    Instituto Federal de Pernambuco - Curso Técnico em Desenvolvimento de Sistemas
+</footer>
+
+<script src="../../assets/js/script.js"></script>
+<script type="module" src="../../assets/js/auth.js"></script>
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById("menu");
+        const menuToggle = document.getElementById("menuToggle");
+
+        const isOpen = menu.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", isOpen);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.getElementById("menuToggle");
+
+        if (menuToggle) {
+            menuToggle.addEventListener("click", toggleMobileMenu);
+        }
+    });
+
+    document.addEventListener("click", function(event) {
+        const menu = document.getElementById("menu");
+        const menuToggle = document.getElementById("menuToggle");
+
+        if (menu.classList.contains("active") &&
+            !menu.contains(event.target) &&
+            !menuToggle.contains(event.target)) {
+
+            menu.classList.remove("active");
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+</script>
+</body>
+</html>

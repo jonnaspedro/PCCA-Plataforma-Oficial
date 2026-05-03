@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCCA - Painel do Aluno</title>
+<link rel="icon" type="image/png" href="../../assets/images/logo.png">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<style>
+.menu-toggle{
+    display:none;
+    background:transparent;
+    border:none;
+    color:inherit;
+    font-size:1rem;
+    cursor:pointer;
+    padding:.75rem 1rem;
+}
+
+@media (max-width:768px){
+
+.top-container{
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.menu-toggle{
+    display:block;
+}
+
+nav.menu{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    margin-top:.75rem;
+}
+
+nav.menu.active{
+    display:flex;
+}
+
+nav.menu a{
+    width:100%;
+    text-align:left;
+    padding:.75rem 0;
+}
+
+}
+
+.post-card{
+    background:#fff;
+    border-radius:14px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 8px 22px rgba(0,0,0,.06);
+}
+
+.post-card input{
+    width:100%;
+    padding:12px 14px;
+    margin-bottom:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+}
+
+.post-card button{
+    border:none;
+    padding:12px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    background:#198754;
+    color:#fff;
+    font-weight:600;
+}
+
+.post-card button:hover{
+    opacity:.92;
+}
+
+.btn-danger{
+    background:#dc3545 !important;
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-bar">
+    <div class="top-container">
+
+        <div class="brand">
+            <img src="../../assets/images/logo.png">
+
+            <div class="brand-text">
+                <h1>Plataforma de Compartilhamento de Conhecimento</h1>
+                <span>Instituto Federal de Pernambuco</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+            ☰ Menu
+        </button>
+
+        <nav class="menu" id="menu">
+            <a href="index.html">Início</a>
+            <a href="disciplinas.html">Disciplinas</a>
+            <a href="perguntas.html">Perguntas</a>
+            <a href="painel.html">Painel do Aluno</a>
+        </nav>
+
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Painel do Aluno</h2>
+        <p>Gerencie seu perfil</p>
+    </div>
+</section>
+
+<main class="layout">
+<section class="content">
+
+<div class="post-card">
+<h3>Meu Perfil</h3>
+
+<input type="text" id="nome" readonly>
+<input type="text" id="turma" placeholder="Turma">
+
+<div class="botoes-perfil">
+<button onclick="salvarPerfil()">Salvar Perfil</button>
+</div>
+</div>
+
+<div class="post-card">
+<h3>Redefinir Senha</h3>
+
+<input type="email" id="emailRecuperacao" readonly>
+
+<small style="display:block; margin:8px 0; color:#555;">
+Será enviado um link para redefinição de senha no seu email.
+</small>
+
+<button onclick="recuperarSenha(document.getElementById('emailRecuperacao').value)">
+Redefinir senha
+</button>
+</div>
+
+<div class="post-card">
+<h3>Conta</h3>
+
+<button onclick="sair()" class="btn-danger">
+Sair da Conta
+</button>
+
+</div>
+
+</section>
+</main>
+
+<footer class="footer">
+Instituto Federal de Pernambuco
+</footer>
+
+<script src="../../assets/js/script.js"></script>
+
+<script type="module" src="../../assets/js/auth.js"></script>
+
+<script>
+function toggleMobileMenu(){
+    const menu = document.getElementById("menu");
+    const btn  = document.getElementById("menuToggle");
+
+    menu.classList.toggle("active");
+
+    const aberto = menu.classList.contains("active");
+    btn.setAttribute("aria-expanded", aberto);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const btn = document.getElementById("menuToggle");
+    const menu = document.getElementById("menu");
+
+    if(btn){
+        btn.addEventListener("click",function(e){
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+    }
+
+    document.addEventListener("click",function(e){
+
+        if(
+            menu.classList.contains("active") &&
+            !menu.contains(e.target) &&
+            !btn.contains(e.target)
+        ){
+            menu.classList.remove("active");
+            btn.setAttribute("aria-expanded","false");
+        }
+
+    });
+
+    menu.querySelectorAll("a").forEach(link=>{
+        link.addEventListener("click",()=>{
+            menu.classList.remove("active");
+            btn.setAttribute("aria-expanded","false");
+        });
+    });
+
+});
+</script>
+
+<script type="module">
+import { auth } from "../../assets/js/firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const nomeInput = document.getElementById("nome");
+const emailRecuperacao = document.getElementById("emailRecuperacao");
+
+let carregou = false;
+
+onAuthStateChanged(auth, (user) => {
+
+  if (!carregou) {
+    carregou = true;
+
+    if (!user) {
+      window.location.href = "./login.html";
+    } else {
+
+      if (nomeInput) nomeInput.value = user.email;
+      if (emailRecuperacao) emailRecuperacao.value = user.email;
+
+      carregarPerfil();
+    }
+  }
+
+});
+</script>
+
+<script>
+window.salvarPerfil = function(){
+
+  const turma = document.getElementById("turma").value.trim();
+  const nome  = document.getElementById("nome").value;
+
+  if(!turma){
+    alert("Preencha a turma.");
+    return;
+  }
+
+  const perfil = {
+    nome,
+    turma,
+    atualizadoEm:new Date().toISOString()
+  };
+
+  localStorage.setItem("perfilAluno", JSON.stringify(perfil));
+
+  alert("Perfil salvo com sucesso!");
+};
+
+window.carregarPerfil = function(){
+
+  const perfilString = localStorage.getItem("perfilAluno");
+
+  if(!perfilString) return;
+
+  try{
+
+    const perfil = JSON.parse(perfilString);
+
+    document.getElementById("turma").value =
+    perfil.turma || "";
+
+  }catch(error){
+    console.error(error);
+  }
+};
+</script>
+</body>
+</html>
