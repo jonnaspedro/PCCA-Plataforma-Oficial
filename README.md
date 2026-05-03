@@ -171,23 +171,50 @@ PCCA/
 
 ### Coleta de Dados
 
-Em desenvolvimento.
+A plataforma pode coletar os seguintes dados:
+
+- Informações fornecidas pelo usuário (como nome e e-mail, quando aplicável);
+- Dados de autenticação e sessão;
+- Registros de uso e interações dentro da aplicação;
+- Informações técnicas como navegador, dispositivo e IP (para segurança e diagnóstico).
 
 ### Uso das Informações
 
-Em desenvolvimento.
+Os dados coletados são utilizados para:
+
+- Permitir o funcionamento correto da plataforma;
+- Autenticação e controle de acesso;
+- Melhorar a experiência do usuário;
+- Garantir segurança e prevenir uso indevido;
+- Suporte e manutenção do sistema.
 
 ### Segurança
 
-Em desenvolvimento.
+A plataforma adota medidas técnicas e organizacionais para proteger os dados dos usuários, incluindo:
+
+- Controle de acesso ao backend;
+- Proteção de rotas e autenticação;
+- Armazenamento seguro de informações;
+- Monitoramento básico de uso para prevenção de falhas.
+
+Nenhum sistema é totalmente seguro, mas são aplicadas boas práticas para reduzir riscos.
 
 ### Direitos do Usuário
 
-Em desenvolvimento.
+O usuário pode, quando aplicável:
+
+- Solicitar acesso aos seus dados;
+- Solicitar correção de informações;
+- Solicitar exclusão de dados pessoais armazenados;
+- Revogar consentimentos quando permitido pelo sistema.
 
 ### Cookies e Sessões
 
-Em desenvolvimento.
+A plataforma pode utilizar:
+
+- Cookies para melhorar a navegação;
+- Sessões para manter autenticação ativa;
+- Dados temporários para funcionamento correto do sistema.
 
 ## 👨‍💻 Autor
 
