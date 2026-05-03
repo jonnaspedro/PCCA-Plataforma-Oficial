@@ -157,13 +157,6 @@ PCCA/
 
 ---
 
-## 📌 Roadmap Futuro
-
-- [ ] Chat entre alunos    
-- [ ] Aplicativo mobile   
-
----
-
 ## 📄 Documentação do Sistema
 
 > Espaço reservado para documentação técnica completa.
