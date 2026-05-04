@@ -162,8 +162,11 @@ PCCA/
 ### Backend
 
 [Ver PDF](./pcca-backend.pdf)
+<<<<<<< HEAD
 
 ---
+=======
+>>>>>>> 4a36975bed7d5344475ff3978160a076a4f873f1
 
 ## 🔒 Política de Privacidade
 
@@ -193,6 +196,10 @@ Os dados coletados são utilizados para:
 A plataforma adota medidas técnicas e organizacionais para proteger os dados dos usuários, incluindo:
 
 - Controle de acesso ao backend;
+<<<<<<< HEAD
+=======
+- Proteção de rotas e autenticação;
+>>>>>>> 4a36975bed7d5344475ff3978160a076a4f873f1
 - Armazenamento seguro de informações;
 - Monitoramento básico de uso para prevenção de falhas.
 
