@@ -16,7 +16,28 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-function salvarPerfil() {
+let usuarioAtual = null;
+
+onAuthStateChanged(auth, (user) => {
+
+    if (!user) {
+        console.log("Usuário não logado");
+        return;
+    }
+
+    usuarioAtual = user;
+
+    const nomeInput = document.getElementById("nome");
+    const emailRecuperacao = document.getElementById("emailRecuperacao");
+
+    if (nomeInput) nomeInput.value = user.email;
+    if (emailRecuperacao) emailRecuperacao.value = user.email;
+
+    carregarPerfil();
+    carregarPerguntas();
+});
+
+window.salvarPerfil = function () {
     const nome = document.getElementById("nome")?.value || "";
     const turma = document.getElementById("turma")?.value || "";
     const curso = document.getElementById("curso")?.value || "";
@@ -47,53 +68,29 @@ function carregarPerfil() {
     const dados = JSON.parse(localStorage.getItem("perfilAluno"));
     if (!dados) return;
 
-    if (document.getElementById("nome"))
-        document.getElementById("nome").value = dados.nome || "";
+    if (document.getElementById("nome") && dados.nome) {
+        document.getElementById("nome").value = dados.nome;
+    }
 
     if (document.getElementById("turma"))
         document.getElementById("turma").value = dados.turma || "";
-    
 }
 
 const disciplinas = [
-    // 1º Ano
-    "Artes 1",
-    "Biologia 1",
-    "Ciência, Tecnologia e Sociedade",
-    "Cidadania e Ética 1",
-    "Filosofia 1",
-    "Física 1",
-    "Geografia 1",
-    "História 1",
-    "Informática e Redes",
-    "Língua Inglesa 1",
-    "Língua Portuguesa 1",
-    "Matemática 1",
-    "Programação 1",
-    "Projeto e Prática 1",
-    "Química 1",
-
-    // 2º Ano
-    "Banco de Dados",
-    "Desenvolvimento Web",
-    "Programação 2",
-    "Matemática 2",
-    "Física 2",
-    "Química 2",
-
-    // 3º Ano
-    "Programação 3",
-    "Matemática 3",
-    "Física 3",
-    "Química 3",
-    "Testes e Software",
-    "Empreendedorismo"
+    "Artes 1","Biologia 1","Ciência, Tecnologia e Sociedade",
+    "Cidadania e Ética 1","Filosofia 1","Física 1","Geografia 1",
+    "História 1","Informática e Redes","Língua Inglesa 1",
+    "Língua Portuguesa 1","Matemática 1","Programação 1",
+    "Projeto e Prática 1","Química 1",
+    "Banco de Dados","Desenvolvimento Web","Programação 2",
+    "Matemática 2","Física 2","Química 2",
+    "Programação 3","Matemática 3","Física 3",
+    "Química 3","Testes e Software","Empreendedorismo"
 ];
 
 function filtrarDisciplinas() {
     const input = document.getElementById("disciplina")?.value.toLowerCase() || "";
     const datalist = document.getElementById("listaSugestoes");
-
     if (!datalist) return;
 
     datalist.innerHTML = "";
@@ -109,43 +106,61 @@ function filtrarDisciplinas() {
 
 window.publicarPergunta = async function () {
 
-    const user = auth.currentUser;
+    console.log("1 - função iniciou");
 
-    if (!user) {
-        alert("Faça login para publicar.");
-        return;
+    try {
+
+        console.log("2 - dentro do try");
+
+        console.log("usuarioAtual:", usuarioAtual);
+
+        if (!usuarioAtual) {
+            console.log("3 - sem usuário");
+            alert("Faça login para publicar.");
+            return;
+        }
+
+        const tituloEl = document.getElementById("titulo");
+        const disciplinaEl = document.getElementById("disciplina");
+        const textoEl = document.getElementById("texto");
+
+        console.log("4 - elementos:", tituloEl, disciplinaEl, textoEl);
+
+        const titulo = tituloEl?.value.trim();
+        const disciplina = disciplinaEl?.value.trim();
+        const texto = textoEl?.value.trim();
+
+        console.log("5 - valores:", titulo, disciplina, texto);
+
+        if (!titulo || !disciplina || !texto) {
+            console.log("6 - campos vazios");
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        console.log("7 - tentando salvar no Firebase");
+
+        await addDoc(collection(db, "perguntas"), {
+            uid: usuarioAtual.uid,
+            nome: usuarioAtual.email,
+            email: usuarioAtual.email,
+            titulo,
+            disciplina,
+            texto,
+            curtidas: 0,
+            data: serverTimestamp()
+        });
+
+        console.log("8 - salvou");
+
+        alert("Pergunta publicada!");
+
+    } catch (error) {
+        console.error(" ERRO REAL:", error);
+        alert("Erro: " + error.message);
     }
-
-    const nome = document.getElementById("nome").value.trim();
-    const titulo = document.getElementById("titulo").value.trim();
-    const disciplina = document.getElementById("disciplina").value.trim();
-    const texto = document.getElementById("texto").value.trim();
-
-    if (!nome || !titulo || !disciplina || !texto) {
-        alert("Preencha todos os campos!");
-        return;
-    }
-
-    await addDoc(collection(db, "perguntas"), {
-        uid: user.uid,
-        nome,
-        email: user.email,
-        titulo,
-        disciplina,
-        texto,
-        curtidas: 0,
-        data: serverTimestamp()
-    });
-
-    alert("Pergunta publicada!");
-
-    document.getElementById("formPergunta").reset();
-
-    const nomeInput = document.getElementById("nome");
-    if (nomeInput) nomeInput.value = user.email;
-
-    carregarPerguntas();
 };
+
 
 async function carregarPerguntas() {
 
@@ -154,60 +169,69 @@ async function carregarPerguntas() {
 
     container.innerHTML = "";
 
-    const user = auth.currentUser;
-    const snapshot = await getDocs(collection(db, "perguntas"));
+    try {
 
-    snapshot.forEach((item) => {
+        const snapshot = await getDocs(collection(db, "perguntas"));
+            if (snapshot.empty) {
+                container.innerHTML = "<p>Nenhuma pergunta ainda.</p>";
+                return;
+            }
 
-        const p = item.data();
-        const id = item.id;
+        snapshot.forEach((item) => {
 
-        let botoesAutor = "";
+            const p = item.data();
+            const id = item.id;
 
-        if (user && user.uid === p.uid) {
-            botoesAutor = `
-                <button onclick="editarPergunta('${id}')">✏️ Editar</button>
-                <button onclick="excluirPergunta('${id}')">🗑 Excluir</button>
+            let botoesAutor = "";
+
+            if (usuarioAtual && usuarioAtual.uid === p.uid) {
+                botoesAutor = `
+                    <button onclick="editarPergunta('${id}')">✏️ Editar</button>
+                    <button onclick="excluirPergunta('${id}')">🗑 Excluir</button>
+                `;
+            }
+
+            const card = document.createElement("div");
+            card.className = "cardPergunta";
+
+            card.innerHTML = `
+                <h4>${p.titulo || "Sem título"}</h4>
+                <small>
+                    ${p.disciplina || ""} | ${p.nome || p.email || "Usuário"}
+                </small>
+                <p>${p.texto || ""}</p>
+
+                <div class="acoesPergunta">
+                    <button onclick="curtirPergunta('${id}')">
+                        👍 ${p.curtidas || 0}
+                    </button>
+
+                    <button onclick="abrirComentarios('${id}')">
+                        💬 Comentários
+                    </button>
+
+                    ${botoesAutor}
+                </div>
+
+                <div id="comentarios-${id}" class="comentariosBox"></div>
             `;
-        }
 
-        const card = document.createElement("div");
-        card.className = "cardPergunta";
+            container.appendChild(card);
+        });
 
-        card.innerHTML = `
-            <h4>${p.titulo || "Sem título"}</h4>
-            <small>${p.disciplina || ""} | ${p.nome || "Usuário"}</small>
-            <p>${p.texto || ""}</p>
-
-            <div class="acoesPergunta">
-                <button onclick="curtirPergunta('${id}')">
-                    👍 ${p.curtidas || 0}
-                </button>
-
-                <button onclick="abrirComentarios('${id}')">
-                    💬 Comentários
-                </button>
-
-                ${botoesAutor}
-            </div>
-
-            <div id="comentarios-${id}" class="comentariosBox"></div>
-        `;
-
-        container.appendChild(card);
-    });
+    } catch (error) {
+        console.error("Erro ao carregar perguntas:", error);
+    }
 }
 
 window.curtirPergunta = async function (id) {
 
-    const user = auth.currentUser;
-
-    if (!user) {
+    if (!usuarioAtual) {
         alert("Faça login.");
         return;
     }
 
-    const likeRef = doc(db, "perguntas", id, "likes", user.uid);
+    const likeRef = doc(db, "perguntas", id, "likes", usuarioAtual.uid);
     const likeSnap = await getDoc(likeRef);
 
     if (likeSnap.exists()) {
@@ -215,7 +239,7 @@ window.curtirPergunta = async function (id) {
         return;
     }
 
-    await setDoc(likeRef, { uid: user.uid });
+    await setDoc(likeRef, { uid: usuarioAtual.uid });
 
     const perguntaRef = doc(db, "perguntas", id);
     const perguntaSnap = await getDoc(perguntaRef);
@@ -230,7 +254,6 @@ window.curtirPergunta = async function (id) {
 };
 
 window.excluirPergunta = async function (id) {
-
     if (!confirm("Deseja excluir esta pergunta?")) return;
 
     await deleteDoc(doc(db, "perguntas", id));
@@ -238,9 +261,7 @@ window.excluirPergunta = async function (id) {
 };
 
 window.editarPergunta = async function (id) {
-
     const novoTexto = prompt("Digite o novo texto:");
-
     if (!novoTexto || novoTexto.trim() === "") return;
 
     await updateDoc(doc(db, "perguntas", id), {
@@ -249,7 +270,6 @@ window.editarPergunta = async function (id) {
 
     carregarPerguntas();
 };
-
 
 window.abrirComentarios = async function (id) {
 
@@ -264,68 +284,24 @@ window.abrirComentarios = async function (id) {
     box.dataset.aberto = "true";
 
     box.innerHTML = `
-        <div class="comentariosPainel">
-
-            <div class="comentariosHeader">
-                <span>💬 Comentários</span>
-
-                <button 
-                    class="btnFecharComentarios"
-                    onclick="abrirComentarios('${id}')">
-                    ✖
-                </button>
-            </div>
-
-            <div class="comentarioTopo">
-                <textarea
-                    id="txt-${id}"
-                    class="campoComentario"
-                    placeholder="Escreva seu comentário..."
-                    rows="3"
-                ></textarea>
-
-                <button 
-                    class="btnEnviarComentario"
-                    onclick="enviarComentario('${id}')">
-                    Enviar
-                </button>
-            </div>
-
-            <div id="lista-${id}" class="listaComentarios"></div>
-
-        </div>
+        <textarea id="txt-${id}"></textarea>
+        <button onclick="enviarComentario('${id}')">Enviar</button>
+        <div id="lista-${id}"></div>
     `;
 
     const lista = document.getElementById("lista-" + id);
-    const user = auth.currentUser;
 
     const snapshot = await getDocs(
         collection(db, "perguntas", id, "comentarios")
     );
 
     snapshot.forEach((docItem) => {
-
         const c = docItem.data();
-        const comentarioId = docItem.id;
-
-        if (!c.nome || !c.texto || c.texto.trim() === "") return;
-
-        let controles = "";
-
-        if (user && user.uid === c.uid) {
-            controles = `
-                <div class="acoesMini">
-                    <button onclick="editarComentario('${id}','${comentarioId}')">Editar</button>
-                    <button onclick="excluirComentario('${id}','${comentarioId}')">Excluir</button>
-                </div>
-            `;
-        }
 
         lista.innerHTML += `
-            <div class="itemComentario">
+            <div>
                 <b>${c.nome}</b>
                 <p>${c.texto}</p>
-                ${controles}
             </div>
         `;
     });
@@ -333,9 +309,7 @@ window.abrirComentarios = async function (id) {
 
 window.enviarComentario = async function (id) {
 
-    const user = auth.currentUser;
-
-    if (!user) {
+    if (!usuarioAtual) {
         alert("Faça login.");
         return;
     }
@@ -348,8 +322,8 @@ window.enviarComentario = async function (id) {
     await addDoc(
         collection(db, "perguntas", id, "comentarios"),
         {
-            uid: user.uid,
-            nome: user.email,
+            uid: usuarioAtual.uid,
+            nome: usuarioAtual.email,
             texto,
             data: serverTimestamp()
         }
@@ -358,35 +332,7 @@ window.enviarComentario = async function (id) {
     abrirComentarios(id);
 };
 
-window.excluirComentario = async function (perguntaId, comentarioId) {
-
-    if (!confirm("Deseja excluir este comentário?")) return;
-
-    await deleteDoc(
-        doc(db, "perguntas", perguntaId, "comentarios", comentarioId)
-    );
-
-    abrirComentarios(perguntaId);
-};
-
-window.editarComentario = async function (perguntaId, comentarioId) {
-
-    const novoTexto = prompt("Digite o novo comentário:");
-
-    if (!novoTexto || novoTexto.trim() === "") return;
-
-    await updateDoc(
-        doc(db, "perguntas", perguntaId, "comentarios", comentarioId),
-        {
-            texto: novoTexto.trim()
-        }
-    );
-
-    abrirComentarios(perguntaId);
-};
-
 function atualizarConteudosDisciplina() {
-
     const container = document.getElementById("conteudosDisciplina");
     if (!container) return;
 
@@ -409,12 +355,19 @@ function atualizarConteudosDisciplina() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    carregarPerfil();
     atualizarConteudosDisciplina();
+});
 
-    onAuthStateChanged(auth, () => {
-        carregarPerguntas();
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("formPergunta");
 
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            console.log("submit funcionando");
+
+            await publicarPergunta();
+        });
+    }
 });

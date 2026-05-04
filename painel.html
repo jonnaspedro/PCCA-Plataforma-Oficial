@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PCCA - Painel do Aluno</title>
+
 <link rel="icon" type="image/png" href="./assets/images/logo.png">
 <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -19,33 +20,11 @@
 }
 
 @media (max-width:768px){
-
-.top-container{
-    flex-wrap:wrap;
-    align-items:center;
-}
-
-.menu-toggle{
-    display:block;
-}
-
-nav.menu{
-    display:none;
-    width:100%;
-    flex-direction:column;
-    margin-top:.75rem;
-}
-
-nav.menu.active{
-    display:flex;
-}
-
-nav.menu a{
-    width:100%;
-    text-align:left;
-    padding:.75rem 0;
-}
-
+.top-container{ flex-wrap:wrap; align-items:center; }
+.menu-toggle{ display:block; }
+nav.menu{ display:none; width:100%; flex-direction:column; margin-top:.75rem; }
+nav.menu.active{ display:flex; }
+nav.menu a{ width:100%; text-align:left; padding:.75rem 0; }
 }
 
 .post-card{
@@ -75,13 +54,9 @@ nav.menu a{
     font-weight:600;
 }
 
-.post-card button:hover{
-    opacity:.92;
-}
+.post-card button:hover{ opacity:.92; }
 
-.btn-danger{
-    background:#dc3545 !important;
-}
+.btn-danger{ background:#dc3545 !important; }
 </style>
 </head>
 
@@ -92,16 +67,13 @@ nav.menu a{
 
         <div class="brand">
             <img src="./assets/images/logo.png">
-
             <div class="brand-text">
                 <h1>Plataforma de Compartilhamento de Conhecimento</h1>
                 <span>Instituto Federal de Pernambuco</span>
             </div>
         </div>
 
-        <button class="menu-toggle" id="menuToggle" aria-expanded="false">
-            ☰ Menu
-        </button>
+        <button class="menu-toggle" id="menuToggle">☰ Menu</button>
 
         <nav class="menu" id="menu">
             <a href="index.html">Início</a>
@@ -129,9 +101,7 @@ nav.menu a{
 <input type="text" id="nome" readonly>
 <input type="text" id="turma" placeholder="Turma">
 
-<div class="botoes-perfil">
 <button onclick="salvarPerfil()">Salvar Perfil</button>
-</div>
 </div>
 
 <div class="post-card">
@@ -154,7 +124,6 @@ Redefinir senha
 <button onclick="sair()" class="btn-danger">
 Sair da Conta
 </button>
-
 </div>
 
 </section>
@@ -164,19 +133,13 @@ Sair da Conta
 Instituto Federal de Pernambuco
 </footer>
 
-<script src="./assets/js/script.js"></script>
-
-<script type="module" src="../../assets/js/auth.js"></script>
+<script type="module" src="./assets/js/script.js"></script>
+<script type="module" src="./assets/js/auth.js"></script>
 
 <script>
 function toggleMobileMenu(){
     const menu = document.getElementById("menu");
-    const btn  = document.getElementById("menuToggle");
-
     menu.classList.toggle("active");
-
-    const aberto = menu.classList.contains("active");
-    btn.setAttribute("aria-expanded", aberto);
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
@@ -184,30 +147,22 @@ document.addEventListener("DOMContentLoaded",()=>{
     const btn = document.getElementById("menuToggle");
     const menu = document.getElementById("menu");
 
-    if(btn){
-        btn.addEventListener("click",function(e){
-            e.stopPropagation();
-            toggleMobileMenu();
-        });
-    }
+    btn.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        toggleMobileMenu();
+    });
 
-    document.addEventListener("click",function(e){
-
-        if(
-            menu.classList.contains("active") &&
-            !menu.contains(e.target) &&
-            !btn.contains(e.target)
-        ){
+    document.addEventListener("click",(e)=>{
+        if(menu.classList.contains("active") &&
+           !menu.contains(e.target) &&
+           !btn.contains(e.target)){
             menu.classList.remove("active");
-            btn.setAttribute("aria-expanded","false");
         }
-
     });
 
     menu.querySelectorAll("a").forEach(link=>{
         link.addEventListener("click",()=>{
             menu.classList.remove("active");
-            btn.setAttribute("aria-expanded","false");
         });
     });
 
@@ -215,72 +170,24 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
 
 <script type="module">
-import { auth } from "./firebase-config.js";
+import { auth } from "./assets/js/firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const nomeInput = document.getElementById("nome");
-const emailRecuperacao = document.getElementById("emailRecuperacao");
-
-let carregou = false;
 
 onAuthStateChanged(auth, (user) => {
 
-  if (!carregou) {
-    carregou = true;
-
     if (!user) {
-      window.location.href = "./login.html";
-    } else {
-
-      if (nomeInput) nomeInput.value = user.email;
-      if (emailRecuperacao) emailRecuperacao.value = user.email;
-
-      carregarPerfil();
+        window.location.href = "login.html";
+        return;
     }
-  }
+
+    const nomeInput = document.getElementById("nome");
+    const emailInput = document.getElementById("emailRecuperacao");
+
+    if (nomeInput) nomeInput.value = user.email;
+    if (emailInput) emailInput.value = user.email;
 
 });
 </script>
 
-<script>
-window.salvarPerfil = function(){
-
-  const turma = document.getElementById("turma").value.trim();
-  const nome  = document.getElementById("nome").value;
-
-  if(!turma){
-    alert("Preencha a turma.");
-    return;
-  }
-
-  const perfil = {
-    nome,
-    turma,
-    atualizadoEm:new Date().toISOString()
-  };
-
-  localStorage.setItem("perfilAluno", JSON.stringify(perfil));
-
-  alert("Perfil salvo com sucesso!");
-};
-
-window.carregarPerfil = function(){
-
-  const perfilString = localStorage.getItem("perfilAluno");
-
-  if(!perfilString) return;
-
-  try{
-
-    const perfil = JSON.parse(perfilString);
-
-    document.getElementById("turma").value =
-    perfil.turma || "";
-
-  }catch(error){
-    console.error(error);
-  }
-};
-</script>
 </body>
 </html>

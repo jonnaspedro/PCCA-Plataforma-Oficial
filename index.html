@@ -264,19 +264,19 @@
 
 
 <section class="hero">
-<div class="hero-content">
+    <div class="hero-content">
 
-    <h2>Plataforma de Compartilhamento de Conhecimento</h2>
+        <h2>Plataforma de Compartilhamento de Conhecimento</h2>
 
-    <p>Curso Técnico em Desenvolvimento de Sistemas</p>
-        <p>
-            <a href="https://qacademico.ifpe.edu.br/" target="_blank" class="link-qacademico">
-            Acesse o Q Acadêmico
-            </a>
-        </p>
-    <div id="areaUsuario"></div>
+        <p>Curso Técnico em Desenvolvimento de Sistemas</p>
+            <p>
+                <a href="https://qacademico.ifpe.edu.br/" target="_blank" class="link-qacademico">
+                Acesse o Q Acadêmico
+                </a>
+            </p>
+        <div id="areaUsuario"></div>
 
-</div>
+    </div>
 </section>
 
 
@@ -303,186 +303,186 @@
 </footer>
 
 <script type="module">
-import { db, auth } from "./assets/js/firebase-config.js";
+    import { db, auth } from "./assets/js/firebase-config.js";
 
-import {
-collection,
-getDocs,
-query,
-orderBy
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+    collection,
+    getDocs,
+    query,
+    orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+    onAuthStateChanged,
+    signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const areaUsuario = document.getElementById("areaUsuario");
+    const areaUsuario = document.getElementById("areaUsuario");
 
-onAuthStateChanged(auth,(user)=>{
+    onAuthStateChanged(auth,(user)=>{
 
-    if(user){
+        if(user){
 
-        areaUsuario.innerHTML = `
-            <div class="usuario-logado">
-                Logado como: ${user.email}
-            </div>
+            areaUsuario.innerHTML = `
+                <div class="usuario-logado">
+                    Logado como: ${user.email}
+                </div>
 
-            <div class="top-actions">
-                <a href="painel.html" class="btn-painel">
-                    Meu Painel
-                </a>
+                <div class="top-actions">
+                    <a href="painel.html" class="btn-painel">
+                        Meu Painel
+                    </a>
 
-                <a href="#" class="btn-login" id="btnSair">
-                    Sair
-                </a>
-            </div>
-        `;
-
-        document.getElementById("btnSair")
-        .addEventListener("click", async(e)=>{
-            e.preventDefault();
-            await signOut(auth);
-        });
-
-    }else{
-
-        areaUsuario.innerHTML = `
-            <div class="top-actions">
-                <a href="login.html" class="btn-login">
-                    Entrar
-                </a>
-
-                <a href="cadastro.html" class="btn-painel">
-                    Criar Conta
-                </a>
-            </div>
-        `;
-    }
-});
-
-window.atualizarPostsIndex = async function(){
-
-    const container = document.getElementById("Postagens");
-    container.innerHTML = `
-    <div class="loading">
-        <div class="spinner"></div>
-        <p>Carregando perguntas...</p>
-    </div>
-`;
-
-    const busca =
-    document.getElementById("buscaAssunto")
-    ?.value.toLowerCase() || "";
-
-    try{
-
-        const q = query(
-            collection(db,"perguntas"),
-            orderBy("data","desc")
-        );
-
-        const snapshot = await getDocs(q);
-
-        container.innerHTML = "";
-
-        if(snapshot.empty){
-            container.innerHTML =
-            "<p>Nenhuma pergunta encontrada.</p>";
-            return;
-        }
-
-        for (const docItem of snapshot.docs){
-
-            const p = docItem.data();
-            const perguntaId = docItem.id;
-
-            const titulo = (p.titulo || "").toLowerCase();
-            const texto  = (p.texto || "").toLowerCase();
-
-            if(
-                !titulo.includes(busca) &&
-                !texto.includes(busca)
-            ){
-                continue;
-            }
-
-            const comentariosSnap = await getDocs(
-                collection(db,"perguntas",perguntaId,"comentarios")
-            );
-
-            let comentariosHTML = "";
-
-            comentariosSnap.forEach((comentarioDoc)=>{
-
-                const c = comentarioDoc.data();
-
-                if(!c.nome || !c.texto || c.texto.trim() === "") return;
-
-                comentariosHTML += `
-                    <div class="comentarioIndex">
-                        <b>${c.nome}</b>
-                        <p>${c.texto}</p>
-                    </div>
-                `;
-            });
-
-            if(comentariosHTML === ""){
-                comentariosHTML =
-                `<small class="semComentario">
-                    Nenhum comentário.
-                </small>`;
-            }
-
-            const card = document.createElement("div");
-            card.className = "cardPergunta";
-
-            card.innerHTML = `
-                <h4>${p.titulo}</h4>
-
-                <small>
-                    Disciplina: ${p.disciplina}
-                    | Autor: ${p.nome}
-                </small>
-
-                <p>${p.texto}</p>
-
-                <small>
-                    👍 ${p.curtidas || 0}
-                </small>
-
-                <div class="comentariosIndexArea">
-                    <h5>💬 Comentários</h5>
-                    ${comentariosHTML}
+                    <a href="#" class="btn-login" id="btnSair">
+                        Sair
+                    </a>
                 </div>
             `;
 
-            container.appendChild(card);
+            document.getElementById("btnSair")
+            .addEventListener("click", async(e)=>{
+                e.preventDefault();
+                await signOut(auth);
+            });
+
+        }else{
+
+            areaUsuario.innerHTML = `
+                <div class="top-actions">
+                    <a href="login.html" class="btn-login">
+                        Entrar
+                    </a>
+
+                    <a href="cadastro.html" class="btn-painel">
+                        Criar Conta
+                    </a>
+                </div>
+            `;
+        }
+    });
+
+    window.atualizarPostsIndex = async function(){
+
+        const container = document.getElementById("Postagens");
+        container.innerHTML = `
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Carregando perguntas...</p>
+        </div>
+    `;
+
+        const busca =
+        document.getElementById("buscaAssunto")
+        ?.value.toLowerCase() || "";
+
+        try{
+
+            const q = query(
+                collection(db,"perguntas"),
+                orderBy("data","desc")
+            );
+
+            const snapshot = await getDocs(q);
+
+            container.innerHTML = "";
+
+            if(snapshot.empty){
+                container.innerHTML =
+                "<p>Nenhuma pergunta encontrada.</p>";
+                return;
+            }
+
+            for (const docItem of snapshot.docs){
+
+                const p = docItem.data();
+                const perguntaId = docItem.id;
+
+                const titulo = (p.titulo || "").toLowerCase();
+                const texto  = (p.texto || "").toLowerCase();
+
+                if(
+                    !titulo.includes(busca) &&
+                    !texto.includes(busca)
+                ){
+                    continue;
+                }
+
+                const comentariosSnap = await getDocs(
+                    collection(db,"perguntas",perguntaId,"comentarios")
+                );
+
+                let comentariosHTML = "";
+
+                comentariosSnap.forEach((comentarioDoc)=>{
+
+                    const c = comentarioDoc.data();
+
+                    if(!c.nome || !c.texto || c.texto.trim() === "") return;
+
+                    comentariosHTML += `
+                        <div class="comentarioIndex">
+                            <b>${c.nome}</b>
+                            <p>${c.texto}</p>
+                        </div>
+                    `;
+                });
+
+                if(comentariosHTML === ""){
+                    comentariosHTML =
+                    `<small class="semComentario">
+                        Nenhum comentário.
+                    </small>`;
+                }
+
+                const card = document.createElement("div");
+                card.className = "cardPergunta";
+
+                card.innerHTML = `
+                    <h4>${p.titulo}</h4>
+
+                    <small>
+                        Disciplina: ${p.disciplina}
+                        | Autor: ${p.nome}
+                    </small>
+
+                    <p>${p.texto}</p>
+
+                    <small>
+                        👍 ${p.curtidas || 0}
+                    </small>
+
+                    <div class="comentariosIndexArea">
+                        <h5>💬 Comentários</h5>
+                        ${comentariosHTML}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            }
+
+        }catch(error){
+
+            console.error(error);
+
+            container.innerHTML =
+            "<p>Erro ao carregar perguntas.</p>";
+        }
+    }
+
+        function toggleMobileMenu(){
+
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("active");
         }
 
-    }catch(error){
+        document.addEventListener("DOMContentLoaded",()=>{
 
-        console.error(error);
+            atualizarPostsIndex();
 
-        container.innerHTML =
-        "<p>Erro ao carregar perguntas.</p>";
-    }
-}
+            document.getElementById("menuToggle")
+            .addEventListener("click",toggleMobileMenu);
 
-    function toggleMobileMenu(){
-
-        const menu = document.getElementById("menu");
-        menu.classList.toggle("active");
-    }
-
-    document.addEventListener("DOMContentLoaded",()=>{
-
-        atualizarPostsIndex();
-
-        document.getElementById("menuToggle")
-        .addEventListener("click",toggleMobileMenu);
-
-    });
+        });
 </script>
 </body>
 </html>
