@@ -9,6 +9,10 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+function emailInstitucional(email) {
+  return email.trim().toLowerCase().endsWith("@discente.ifpe.edu.br");
+}
+
 window.logar = async function(email, senha){
   if(!email || !senha){
     alert("Preencha e-mail e senha.");
