@@ -9,19 +9,10 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-function emailInstitucional(email) {
-  return email.trim().toLowerCase().endsWith("@discente.ifpe.edu.br");
-}
-
 window.logar = async function(email, senha){
   if(!email || !senha){
     alert("Preencha e-mail e senha.");
     return;
-  }
-
-  if(!emailInstitucional(email)){
-  alert("Use apenas e-mails @discente.ifpe.edu.br");
-  return;
   }
 
   try {
@@ -55,11 +46,7 @@ window.cadastrar = async function(email, senha){
     alert("Preencha e-mail e senha.");
     return;
   }
-
-  if(!emailInstitucional(email)){
-  alert("Só é permitido cadastro com e-mail institucional do IFPE.");
-  return;
-  }
+  
   try {
     await createUserWithEmailAndPassword(auth, email.trim(), senha);
 
