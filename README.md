@@ -124,7 +124,6 @@ Criar o **PCCA**, uma plataforma digital centralizada onde os alunos possam:
 
 - Firebase Authentication
 - Firestore
-- 
 ---
 
 ## 📁 Estrutura do Projeto
