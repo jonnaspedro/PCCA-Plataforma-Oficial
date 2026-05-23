@@ -10,17 +10,19 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 window.logar = async function(email, senha){
+
   if(!email || !senha){
     alert("Preencha e-mail e senha.");
     return;
   }
 
   try {
+
     await setPersistence(auth, browserLocalPersistence);
 
     const userCredential = await signInWithEmailAndPassword(
       auth,
-      email.trim(),
+      email.trim().toLowerCase(),
       senha
     );
 
@@ -31,6 +33,7 @@ window.logar = async function(email, senha){
     }, 300);
 
   } catch(error) {
+
     console.error(error);
 
     if(error.code === "auth/invalid-credential"){
@@ -42,24 +45,49 @@ window.logar = async function(email, senha){
 };
 
 window.cadastrar = async function(email, senha){
+
   if(!email || !senha){
     alert("Preencha e-mail e senha.");
     return;
   }
-  
+
+  email = email.trim().toLowerCase();
+
+  const emailValido =
+    /^[a-zA-Z0-9._%+-]+@(discente\.ifpe\.edu\.br|jaboatao\.ifpe\.edu\.br)$/;
+
+  if(!emailValido.test(email)){
+    alert(
+      "Use apenas e-mails institucionais:\n\n" +
+      "@discente.ifpe.edu.br\n" +
+      "ou\n" +
+      "@jaboatao.ifpe.edu.br"
+    );
+    return;
+  }
+
   try {
-    await createUserWithEmailAndPassword(auth, email.trim(), senha);
+
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      senha
+    );
 
     alert("Conta criada com sucesso!");
+
     window.location.href = "./painel.html";
 
   } catch(error){
+
     console.error(error);
 
     if(error.code === "auth/email-already-in-use"){
       alert("Esse e-mail já está cadastrado.");
+
     } else if(error.code === "auth/weak-password"){
       alert("A senha deve ter pelo menos 6 caracteres.");
+
     } else {
       alert(error.message);
     }
@@ -67,33 +95,47 @@ window.cadastrar = async function(email, senha){
 };
 
 window.sair = async function(){
+
   try {
+
     await signOut(auth);
+
     window.location.href = "./login.html";
+
   } catch(error){
+
     console.error(error);
+
     alert("Erro ao sair da conta.");
   }
 };
 
 window.recuperarSenha = async function(email){
+
   if(!email){
     alert("Digite seu e-mail.");
     return;
   }
 
   try {
-    await sendPasswordResetEmail(auth, email.trim());
+
+    await sendPasswordResetEmail(
+      auth,
+      email.trim().toLowerCase()
+    );
 
     alert("Link de redefinição enviado para seu e-mail!");
 
   } catch(error){
+
     console.error(error);
 
     if(error.code === "auth/user-not-found"){
       alert("E-mail não encontrado.");
+
     } else if(error.code === "auth/invalid-email"){
       alert("E-mail inválido.");
+
     } else {
       alert("Erro ao enviar e-mail. Tente novamente.");
     }
