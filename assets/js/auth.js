@@ -58,10 +58,7 @@ window.cadastrar = async function(email, senha){
 
   if(!emailValido.test(email)){
     alert(
-      "Use apenas e-mails institucionais:\n\n" +
-      "@discente.ifpe.edu.br\n" +
-      "ou\n" +
-      "@jaboatao.ifpe.edu.br"
+      "Use apenas e-mails institucionais"
     );
     return;
   }
