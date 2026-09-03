@@ -1,120 +1,267 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>PCCA - Baixe o App</title>
 
-    <link rel="icon" type="image/png" href="./assets/images/logo.png">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link
+        rel="icon"
+        type="image/png"
+        href="./assets/images/logo.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./assets/css/style.css"
+    >
+
 
     <style>
+
+        /* =========================
+           MENU
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+
+            background: transparent;
+            border: none;
+
+            color: inherit;
+
+            font-size: 1rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            padding: .75rem 1rem;
+        }
+
+
+        /* =========================
+           PÁGINA DO APLICATIVO
+        ========================= */
+
         .app-page {
+
             max-width: 1000px;
+
             margin: 0 auto;
+
             padding: 55px 20px 70px;
         }
 
+
+        /* =========================
+           CARD PRINCIPAL
+        ========================= */
+
         .app-card {
+
             background: #fff;
+
             border: 1px solid #ececec;
+
             border-radius: 22px;
+
             padding: 45px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, .06);
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, .06);
 
             display: grid;
-            grid-template-columns: 1fr 320px;
+
+            grid-template-columns:
+                1fr 320px;
+
             gap: 45px;
+
             align-items: center;
         }
 
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
         .app-content h2 {
+
             margin: 0 0 14px;
+
             color: #111827;
+
             font-size: 2.2rem;
+
+            line-height: 1.2;
         }
 
+
         .app-content .subtitle {
+
             color: #198754;
+
             font-weight: 700;
+
+            font-size: .9rem;
+
+            letter-spacing: .5px;
+
             margin-bottom: 18px;
         }
 
+
         .app-content p {
+
             color: #374151;
+
             line-height: 1.7;
+
             font-size: 1.05rem;
+
             margin-bottom: 25px;
         }
 
+
+        /* =========================
+           FUNCIONALIDADES
+        ========================= */
+
         .app-features {
+
             display: grid;
+
             gap: 12px;
+
             margin: 25px 0 30px;
         }
 
+
         .feature {
+
             background: #f9fafb;
+
             border: 1px solid #ececec;
+
             border-radius: 12px;
+
             padding: 13px 15px;
+
             color: #374151;
+
+            transition: .2s;
         }
 
+
+        .feature:hover {
+
+            transform: translateX(3px);
+
+            border-color: #198754;
+        }
+
+
+        /* =========================
+           BOTÃO DOWNLOAD
+        ========================= */
+
         .download-button {
+
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 10px;
 
             background: #198754;
+
             color: #fff;
 
             text-decoration: none;
 
             padding: 15px 24px;
+
             border-radius: 12px;
 
             font-size: 1.05rem;
+
             font-weight: 700;
 
             transition: .2s;
 
-            box-shadow: 0 7px 18px rgba(25, 135, 84, .20);
+            box-shadow:
+                0 7px 18px
+                rgba(25, 135, 84, .20);
         }
+
 
         .download-button:hover {
+
             transform: translateY(-2px);
+
             background: #157347;
+
+            box-shadow:
+                0 10px 22px
+                rgba(25, 135, 84, .25);
         }
 
+
         .download-note {
+
             margin-top: 12px;
+
             color: #6b7280;
+
             font-size: .88rem;
         }
 
+
+        /* =========================
+           VISUAL DO CELULAR
+        ========================= */
+
         .app-visual {
+
             min-height: 300px;
 
             border-radius: 20px;
 
-            background: linear-gradient(
-                145deg,
-                #198754,
-                #126c43
-            );
+            background:
+                linear-gradient(
+                    145deg,
+                    #198754,
+                    #126c43
+                );
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             padding: 28px;
         }
 
+
+        /* =========================
+           CELULAR
+        ========================= */
+
         .phone {
+
             width: 185px;
+
             min-height: 325px;
 
             background: #fff;
@@ -123,14 +270,20 @@
 
             padding: 13px;
 
-            box-shadow: 0 18px 35px rgba(0, 0, 0, .20);
+            box-shadow:
+                0 18px 35px
+                rgba(0, 0, 0, .20);
 
             display: flex;
+
             flex-direction: column;
         }
 
+
         .phone-top {
+
             width: 65px;
+
             height: 6px;
 
             border-radius: 20px;
@@ -140,8 +293,11 @@
             margin: 0 auto 15px;
         }
 
+
         .phone-logo {
+
             width: 72px;
+
             height: 72px;
 
             object-fit: contain;
@@ -149,7 +305,9 @@
             margin: 18px auto 14px;
         }
 
+
         .phone h3 {
+
             text-align: center;
 
             color: #111827;
@@ -159,7 +317,9 @@
             margin: 0 0 8px;
         }
 
+
         .phone p {
+
             text-align: center;
 
             color: #6b7280;
@@ -171,7 +331,9 @@
             margin: 0 10px 18px;
         }
 
+
         .phone-button {
+
             background: #198754;
 
             color: #fff;
@@ -189,7 +351,13 @@
             margin: auto 10px 8px;
         }
 
+
+        /* =========================
+           COMO INSTALAR
+        ========================= */
+
         .requirements {
+
             margin-top: 28px;
 
             padding: 22px;
@@ -199,15 +367,23 @@
             border: 1px solid #ececec;
 
             border-radius: 16px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(0, 0, 0, .04);
         }
 
+
         .requirements h3 {
+
             margin: 0 0 12px;
 
             color: #111827;
         }
 
+
         .requirements p {
+
             margin: 0;
 
             color: #6b7280;
@@ -215,13 +391,76 @@
             line-height: 1.6;
         }
 
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================= */
+
         @media (max-width: 768px) {
 
+
+            /* MENU */
+
+            .top-container {
+
+                flex-wrap: wrap;
+
+                align-items: center;
+            }
+
+
+            .menu-toggle {
+
+                display: block;
+
+                margin-left: auto;
+            }
+
+
+            nav.menu {
+
+                display: none;
+
+                width: 100%;
+
+                flex-direction: column;
+
+                margin-top: .75rem;
+
+                padding-bottom: 10px;
+            }
+
+
+            nav.menu.active {
+
+                display: flex;
+            }
+
+
+            nav.menu a {
+
+                width: 100%;
+
+                text-align: left;
+
+                padding: .75rem 0;
+
+                box-sizing: border-box;
+            }
+
+
+            /* PÁGINA */
+
             .app-page {
+
                 padding: 30px 12px 45px;
             }
 
+
+            /* CARD */
+
             .app-card {
+
                 grid-template-columns: 1fr;
 
                 padding: 28px 20px;
@@ -229,267 +468,482 @@
                 gap: 30px;
             }
 
+
+            /* TÍTULO */
+
             .app-content h2 {
+
                 font-size: 1.7rem;
             }
 
+
+            /* TEXTO */
+
             .app-content p {
+
                 font-size: 1rem;
             }
 
+
+            /* VISUAL */
+
             .app-visual {
+
                 min-height: 270px;
             }
 
+
+            /* CELULAR */
+
             .phone {
+
                 width: 165px;
 
                 min-height: 290px;
             }
 
+
+            /* DOWNLOAD */
+
             .download-button {
+
                 width: 100%;
 
                 box-sizing: border-box;
             }
+
         }
+
+
+        /* =========================
+           CELULARES PEQUENOS
+        ========================= */
+
+        @media (max-width: 420px) {
+
+            .app-card {
+
+                padding: 22px 16px;
+            }
+
+
+            .app-content h2 {
+
+                font-size: 1.5rem;
+            }
+
+
+            .app-visual {
+
+                padding: 20px;
+            }
+
+
+            .phone {
+
+                width: 150px;
+
+                min-height: 270px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<header class="top-bar">
 
-    <div class="top-container">
+    <!-- =========================
+         CABEÇALHO
+    ========================= -->
 
-        <div class="brand">
+    <header class="top-bar">
 
-            <img
-                src="./assets/images/logo.png"
-                alt="Instituto Federal Pernambuco"
-            >
-
-            <div class="brand-text">
-
-                <h1>
-                    Plataforma de Compartilhamento de Conhecimento
-                </h1>
-
-                <span>
-                    Instituto Federal de Pernambuco
-                </span>
-
-            </div>
-
-        </div>
+        <div class="top-container">
 
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-        >
-            ☰ Menu
-        </button>
+            <!-- LOGO -->
 
-
-        <nav
-            class="menu"
-            id="menu"
-        >
-
-            <a href="index.html">
-                Início
-            </a>
-
-            <a href="disciplinas.html">
-                Disciplinas
-            </a>
-
-            <a href="perguntas.html">
-                Perguntas
-            </a>
-
-            <a href="painel.html">
-                Painel do Aluno
-            </a>
-
-            <a
-                href="app.html"
-                class="active"
-            >
-                Baixe o App
-            </a>
-
-        </nav>
-
-    </div>
-
-</header>
-
-
-<main class="app-page">
-
-
-    <section class="app-card">
-
-
-        <div class="app-content">
-
-
-            <div class="subtitle">
-                APLICATIVO OFICIAL
-            </div>
-
-
-            <h2>
-                Leve a plataforma com você
-            </h2>
-
-
-            <p>
-                Baixe o aplicativo da Plataforma de Compartilhamento
-                de Conhecimento e tenha acesso aos conteúdos,
-                perguntas e recursos da plataforma diretamente pelo
-                seu celular.
-            </p>
-
-
-            <div class="app-features">
-
-
-                <div class="feature">
-                    Acesso rápido à plataforma
-                </div>
-
-
-                <div class="feature">
-                    Consulte perguntas e conteúdos
-                </div>
-
-
-                <div class="feature">
-                    Interface simples e responsiva
-                </div>
-
-
-            </div>
-
-
-            <a
-                href="./assets/apk/pcca.apk"
-                class="download-button"
-                download
-            >
-                Baixar aplicativo APK
-            </a>
-
-
-            <div class="download-note">
-                Arquivo para dispositivos Android.
-            </div>
-
-
-        </div>
-
-
-        <div class="app-visual">
-
-
-            <div class="phone">
-
-
-                <div class="phone-top"></div>
-
+            <div class="brand">
 
                 <img
                     src="./assets/images/logo.png"
-                    alt="Logo do aplicativo"
-                    class="phone-logo"
+                    alt="Instituto Federal Pernambuco"
                 >
 
 
-                <h3>
-                    PCCA
-                </h3>
+                <div class="brand-text">
+
+                    <h1>
+                        Plataforma de Compartilhamento
+                        de Conhecimento
+                    </h1>
+
+                    <span>
+                        Instituto Federal de Pernambuco
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÃO MENU MOBILE -->
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+            >
+                ☰ Menu
+            </button>
+
+
+            <!-- MENU -->
+
+            <nav
+                class="menu"
+                id="menu"
+            >
+
+                <a href="index.html">
+                    Início
+                </a>
+
+
+                <a href="disciplinas.html">
+                    Disciplinas
+                </a>
+
+
+                <a href="perguntas.html">
+                    Perguntas
+                </a>
+
+
+                <a href="painel.html">
+                    Painel do Aluno
+                </a>
+
+
+                <a
+                    href="app.html"
+                    class="active"
+                >
+                    Baixe o App
+                </a>
+
+            </nav>
+
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================= -->
+
+    <main class="app-page">
+
+
+        <!-- CARD PRINCIPAL -->
+
+        <section class="app-card">
+
+
+            <!-- TEXTO -->
+
+            <div class="app-content">
+
+
+                <div class="subtitle">
+
+                    APLICATIVO OFICIAL
+
+                </div>
+
+
+                <h2>
+
+                    Leve a plataforma
+                    com você
+
+                </h2>
 
 
                 <p>
+
+                    Baixe o aplicativo da
                     Plataforma de Compartilhamento
-                    de Conhecimento
+                    de Conhecimento e tenha acesso
+                    aos conteúdos, perguntas e
+                    recursos da plataforma
+                    diretamente pelo seu celular.
+
                 </p>
 
 
-                <div class="phone-button">
-                    Abrir aplicativo
+                <!-- FUNCIONALIDADES -->
+
+                <div class="app-features">
+
+
+                    <div class="feature">
+
+                        Acesso rápido à plataforma
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        Consulte perguntas e conteúdos
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        Interface simples e responsiva
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- BOTÃO -->
+
+                <a
+                    href="./assets/apk/pcca.apk"
+                    class="download-button"
+                    download
+                >
+
+                    Baixar aplicativo APK
+
+                </a>
+
+
+                <div class="download-note">
+
+                    Arquivo para dispositivos Android.
+
                 </div>
 
 
             </div>
 
 
-        </div>
+
+            <!-- VISUAL -->
+
+            <div class="app-visual">
 
 
-    </section>
+                <div class="phone">
 
 
-    <section class="requirements">
+                    <div class="phone-top"></div>
 
 
-        <h3>
-            Como instalar
-        </h3>
+                    <img
+                        src="./assets/images/logo.png"
+                        alt="Logo do aplicativo"
+                        class="phone-logo"
+                    >
 
 
-        <p>
-            Baixe o arquivo APK, abra o arquivo no seu dispositivo
-            Android e siga as instruções exibidas pelo sistema para
-            concluir a instalação.
-        </p>
+                    <h3>
+
+                        PCCA
+
+                    </h3>
 
 
-    </section>
+                    <p>
+
+                        Plataforma de
+                        Compartilhamento
+                        de Conhecimento
+
+                    </p>
 
 
-</main>
+                    <div class="phone-button">
+
+                        Abrir aplicativo
+
+                    </div>
 
 
-<footer class="footer">
-
-    Instituto Federal de Pernambuco -
-    Curso Técnico em Desenvolvimento de Sistemas
-
-</footer>
+                </div>
 
 
-<script>
-
-    function toggleMobileMenu() {
-
-        const menu =
-            document.getElementById("menu");
-
-        menu.classList.toggle("active");
-
-    }
+            </div>
 
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        () => {
+        </section>
 
-            document
-                .getElementById("menuToggle")
-                .addEventListener(
+
+
+        <!-- COMO INSTALAR -->
+
+        <section class="requirements">
+
+
+            <h3>
+
+                Como instalar
+
+            </h3>
+
+
+            <p>
+
+                Baixe o arquivo APK, abra o arquivo
+                no seu dispositivo Android e siga
+                as instruções exibidas pelo sistema
+                para concluir a instalação.
+
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================= -->
+
+    <footer class="footer">
+
+        Instituto Federal de Pernambuco -
+        Curso Técnico em Desenvolvimento
+        de Sistemas
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT DO MENU
+    ========================= -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                const menuToggle =
+                    document.getElementById(
+                        "menuToggle"
+                    );
+
+
+                const menu =
+                    document.getElementById(
+                        "menu"
+                    );
+
+
+                if (!menuToggle || !menu) {
+
+                    return;
+
+                }
+
+
+                menuToggle.addEventListener(
                     "click",
-                    toggleMobileMenu
+                    function () {
+
+
+                        const aberto =
+                            menu.classList.toggle(
+                                "active"
+                            );
+
+
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            aberto
+                                ? "true"
+                                : "false"
+                        );
+
+
+                        menuToggle.setAttribute(
+                            "aria-label",
+                            aberto
+                                ? "Fechar menu"
+                                : "Abrir menu"
+                        );
+
+
+                    }
                 );
 
-        }
-    );
 
-</script>
+                /*
+                 * Fecha o menu depois que
+                 * o usuário seleciona uma página.
+                 */
+
+                const links =
+                    menu.querySelectorAll("a");
+
+
+                links.forEach(
+                    function (link) {
+
+                        link.addEventListener(
+                            "click",
+                            function () {
+
+                                menu.classList.remove(
+                                    "active"
+                                );
+
+
+                                menuToggle.setAttribute(
+                                    "aria-expanded",
+                                    "false"
+                                );
+
+
+                                menuToggle.setAttribute(
+                                    "aria-label",
+                                    "Abrir menu"
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            }
+        );
+
+    </script>
 
 
 </body>
+
 </html>
