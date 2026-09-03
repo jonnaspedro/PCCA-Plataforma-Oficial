@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PCCA - Baixe o App</title>
+
+    <link rel="icon" type="image/png" href="./assets/images/logo.png">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <style>
+        .app-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 55px 20px 70px;
+        }
+
+        .app-card {
+            background: #fff;
+            border: 1px solid #ececec;
+            border-radius: 22px;
+            padding: 45px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .06);
+
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .app-content h2 {
+            margin: 0 0 14px;
+            color: #111827;
+            font-size: 2.2rem;
+        }
+
+        .app-content .subtitle {
+            color: #198754;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .app-content p {
+            color: #374151;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .app-features {
+            display: grid;
+            gap: 12px;
+            margin: 25px 0 30px;
+        }
+
+        .feature {
+            background: #f9fafb;
+            border: 1px solid #ececec;
+            border-radius: 12px;
+            padding: 13px 15px;
+            color: #374151;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            background: #198754;
+            color: #fff;
+
+            text-decoration: none;
+
+            padding: 15px 24px;
+            border-radius: 12px;
+
+            font-size: 1.05rem;
+            font-weight: 700;
+
+            transition: .2s;
+
+            box-shadow: 0 7px 18px rgba(25, 135, 84, .20);
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            background: #157347;
+        }
+
+        .download-note {
+            margin-top: 12px;
+            color: #6b7280;
+            font-size: .88rem;
+        }
+
+        .app-visual {
+            min-height: 300px;
+
+            border-radius: 20px;
+
+            background: linear-gradient(
+                145deg,
+                #198754,
+                #126c43
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 28px;
+        }
+
+        .phone {
+            width: 185px;
+            min-height: 325px;
+
+            background: #fff;
+
+            border-radius: 28px;
+
+            padding: 13px;
+
+            box-shadow: 0 18px 35px rgba(0, 0, 0, .20);
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-top {
+            width: 65px;
+            height: 6px;
+
+            border-radius: 20px;
+
+            background: #d1d5db;
+
+            margin: 0 auto 15px;
+        }
+
+        .phone-logo {
+            width: 72px;
+            height: 72px;
+
+            object-fit: contain;
+
+            margin: 18px auto 14px;
+        }
+
+        .phone h3 {
+            text-align: center;
+
+            color: #111827;
+
+            font-size: 1rem;
+
+            margin: 0 0 8px;
+        }
+
+        .phone p {
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: .72rem;
+
+            line-height: 1.45;
+
+            margin: 0 10px 18px;
+        }
+
+        .phone-button {
+            background: #198754;
+
+            color: #fff;
+
+            border-radius: 9px;
+
+            padding: 9px;
+
+            text-align: center;
+
+            font-size: .72rem;
+
+            font-weight: 700;
+
+            margin: auto 10px 8px;
+        }
+
+        .requirements {
+            margin-top: 28px;
+
+            padding: 22px;
+
+            background: #fff;
+
+            border: 1px solid #ececec;
+
+            border-radius: 16px;
+        }
+
+        .requirements h3 {
+            margin: 0 0 12px;
+
+            color: #111827;
+        }
+
+        .requirements p {
+            margin: 0;
+
+            color: #6b7280;
+
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+
+            .app-page {
+                padding: 30px 12px 45px;
+            }
+
+            .app-card {
+                grid-template-columns: 1fr;
+
+                padding: 28px 20px;
+
+                gap: 30px;
+            }
+
+            .app-content h2 {
+                font-size: 1.7rem;
+            }
+
+            .app-content p {
+                font-size: 1rem;
+            }
+
+            .app-visual {
+                min-height: 270px;
+            }
+
+            .phone {
+                width: 165px;
+
+                min-height: 290px;
+            }
+
+            .download-button {
+                width: 100%;
+
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="top-bar">
+
+    <div class="top-container">
+
+        <div class="brand">
+
+            <img
+                src="./assets/images/logo.png"
+                alt="Instituto Federal Pernambuco"
+            >
+
+            <div class="brand-text">
+
+                <h1>
+                    Plataforma de Compartilhamento de Conhecimento
+                </h1>
+
+                <span>
+                    Instituto Federal de Pernambuco
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+        >
+            ☰ Menu
+        </button>
+
+
+        <nav
+            class="menu"
+            id="menu"
+        >
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="disciplinas.html">
+                Disciplinas
+            </a>
+
+            <a href="perguntas.html">
+                Perguntas
+            </a>
+
+            <a href="painel.html">
+                Painel do Aluno
+            </a>
+
+            <a
+                href="app.html"
+                class="active"
+            >
+                Baixe o App
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="app-page">
+
+
+    <section class="app-card">
+
+
+        <div class="app-content">
+
+
+            <div class="subtitle">
+                APLICATIVO OFICIAL
+            </div>
+
+
+            <h2>
+                Leve a plataforma com você
+            </h2>
+
+
+            <p>
+                Baixe o aplicativo da Plataforma de Compartilhamento
+                de Conhecimento e tenha acesso aos conteúdos,
+                perguntas e recursos da plataforma diretamente pelo
+                seu celular.
+            </p>
+
+
+            <div class="app-features">
+
+
+                <div class="feature">
+                    Acesso rápido à plataforma
+                </div>
+
+
+                <div class="feature">
+                    Consulte perguntas e conteúdos
+                </div>
+
+
+                <div class="feature">
+                    Interface simples e responsiva
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="./assets/apk/pcca.apk"
+                class="download-button"
+                download
+            >
+                Baixar aplicativo APK
+            </a>
+
+
+            <div class="download-note">
+                Arquivo para dispositivos Android.
+            </div>
+
+
+        </div>
+
+
+        <div class="app-visual">
+
+
+            <div class="phone">
+
+
+                <div class="phone-top"></div>
+
+
+                <img
+                    src="./assets/images/logo.png"
+                    alt="Logo do aplicativo"
+                    class="phone-logo"
+                >
+
+
+                <h3>
+                    PCCA
+                </h3>
+
+
+                <p>
+                    Plataforma de Compartilhamento
+                    de Conhecimento
+                </p>
+
+
+                <div class="phone-button">
+                    Abrir aplicativo
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <section class="requirements">
+
+
+        <h3>
+            Como instalar
+        </h3>
+
+
+        <p>
+            Baixe o arquivo APK, abra o arquivo no seu dispositivo
+            Android e siga as instruções exibidas pelo sistema para
+            concluir a instalação.
+        </p>
+
+
+    </section>
+
+
+</main>
+
+
+<footer class="footer">
+
+    Instituto Federal de Pernambuco -
+    Curso Técnico em Desenvolvimento de Sistemas
+
+</footer>
+
+
+<script>
+
+    function toggleMobileMenu() {
+
+        const menu =
+            document.getElementById("menu");
+
+        menu.classList.toggle("active");
+
+    }
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            document
+                .getElementById("menuToggle")
+                .addEventListener(
+                    "click",
+                    toggleMobileMenu
+                );
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>
